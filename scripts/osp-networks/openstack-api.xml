@@ -1,0 +1,4 @@
+<network>
+  <name>openstack-api</name>
+  <bridge name="virbr3"/>
+</network>

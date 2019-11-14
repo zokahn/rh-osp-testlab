@@ -1,0 +1,4 @@
+<network>
+  <name>deployment</name>
+  <bridge name="virbr4"/>
+</network>

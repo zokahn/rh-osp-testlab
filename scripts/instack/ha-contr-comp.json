@@ -1,0 +1,64 @@
+{
+    "nodes":[
+        {
+            "mac":[
+                "52:54:00:1c:4d:b6"
+            ],
+            "name":"controller1",
+            "capabilities": "profile:control,boot_option:local",
+            "pm_type":"ipmi",
+            "pm_user":"admin",
+            "pm_password":"Wond3rfulWorld",
+            "pm_addr":"192.168.122.1",
+            "pm_port":"6230"
+        },
+        {
+            "mac":[
+                "52:54:00:c7:85:ce"
+            ],
+            "name":"controller2",
+            "capabilities": "profile:control,boot_option:local",
+            "pm_type":"ipmi",
+            "pm_user":"admin",
+            "pm_password":"Wond3rfulWorld",
+            "pm_addr":"192.168.122.1",
+            "pm_port":"6231"
+        },
+        {
+            "mac":[
+                "52:54:00:89:a7:f7"
+            ],
+            "name":"controller3",
+            "capabilities": "profile:control,boot_option:local",
+            "pm_type":"ipmi",
+            "pm_user":"admin",
+            "pm_password":"Wond3rfulWorld",
+            "pm_addr":"192.168.122.1",
+            "pm_port":"6232"
+        },
+        {
+            "mac":[
+                "52:54:00:bd:bf:40"
+            ],
+            "name":"compute1",
+            "capabilities": "profile:compute,boot_option:local",
+            "pm_type":"ipmi",
+            "pm_user":"admin",
+            "pm_password":"Wond3rfulWorld",
+            "pm_addr":"192.168.122.1",
+            "pm_port":"6233"
+        },
+        {
+            "mac":[
+                "52:54:00:63:81:77"
+            ],
+            "name":"compute2",
+            "capabilities": "profile:compute,boot_option:local",
+            "pm_type":"ipmi",
+            "pm_user":"admin",
+            "pm_password":"Wond3rfulWorld",
+            "pm_addr":"192.168.122.1",
+            "pm_port":"6234"
+        }
+    ]
+}
