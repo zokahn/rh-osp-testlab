@@ -134,3 +134,24 @@ Difference(%)     -0.62%      5.01%        5.60%        5.44%       0.00%
 ** [172.16.100.221] 5000 Warnings  Send buffer: 100.00KB (Requested:50.00KB) No such file or directory
 5000 Warnings  Recv buffer: 100.00KB (Requested:50.00KB) No such file or directory
 ```
+
+## Simple way to create virtual machines, with or without cloud-init
+Great to get started on workload images, test your virtualisation platform or just for generic inspiration
+
+**Get your rhel7 qcow2 image here https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.7/x86_64/product-software
+Then put it in the iso dir as rhel-server-7.6-x86_64-kvm.qcow2**
+
+Do this on a libvirt kvm host; could be your hetzner box
+
+###Without Cloud-Init (to run idm or monitoring services)
+```
+yum install -y libvirt virt-install libguestfs-tools-c
+mkdir virt-machines
+cd virt-machines
+qemu-img create -f qcow2 rhel.qcow2 40G
+virt-resize --expand /dev/sda1 rhel-server-7.6-x86_64-kvm.qcow2 rhel.qcow2
+virt-customize -a rhel.qcow2  --uninstall cloud-init   -root-password password:Lust4Life --selinux-relabel
+virt-install --ram 6096 --vcpus 4  --os-variant rhel7 --disk path=rhel.qcow2,device=disk,bus=virtio,format=qcow2   --noautoconsole --vnc  --network network:default  --name rhel   --cpu host,+vmx --dry-run --print-xml | tee rhel.xml
+virsh define --file  rhel.xml
+virsh start rhel
+```
