@@ -9,6 +9,34 @@ https://community.hetzner.com/tutorials/securing-ssh
 https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/
 https://leanpub.com/the-tao-of-tmux/read
 
+```
+yum -y install tmux
+```
+
+**Start a session**
+```
+tmux
+```
+**Detaching from a session**
+ctrl-b then d
+
+**Listing active session**
+```
+tmux ls
+```
+
+**attaching a running session, if only one is Running**
+```
+tmux a
+```
+**attaching a particular session (where 0 is the session id found in tmux ls)**
+```
+tmux attach -t 0
+```
+
+**Scrolling through a session**
+Ctrl-b then [ then you can use your normal navigation keys to scroll around (eg. Up Arrow or PgDn). Press q to quit scroll mode.
+
 ## notepad automation and oneliners
 
 Oneliner: Creating a file with contents
