@@ -13,7 +13,7 @@ https://leanpub.com/the-tao-of-tmux/read
 
 Oneliner: Creating a file with contents
 ```
-cat > servers.txt << EOF
+cat << EOF > servers.txt
 ctrl01.example.com
 ctrl02.example.com
 ctrl03.example.com

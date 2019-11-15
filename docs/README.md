@@ -1,6 +1,6 @@
 # Red Hat OpenStack Testlab
 Deploy with director in a front to back howto, or at least a 'how i did it'. This document describes the deployment of a fully virtualized Red Hat OpenStack Platform. The director, controller(s) and compute(s) all run as virtual machines on a single host. This host needs to be bare-metal, it only needs one nic and one external IP.
-This can be a rented host at Hetzner. It needs at least 32GB of ram, more is better.
+This can be a rented host at Hetzner. It needs at least 64GB of ram, more is better.
 
 The virt-host does not need to be RHEL. With Hetzner it makes sense to run the robot driven installation of CentOS.
 
