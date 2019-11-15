@@ -1,5 +1,5 @@
 # Table of Contents
-1. [Ownership of a public linux server](#Ownership of a public linux server)
+1. ["Ownership of a public linux server"](#Ownership of a public linux server)
    - [Protect your SSH](##Protect your SSH)
 2. [Managing a cluster of many nodes](#Managing a cluster of many nodes)
    - [tmux for when you leave before done](## tmux for when you may leave before done)
