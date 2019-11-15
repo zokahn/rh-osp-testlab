@@ -10,14 +10,14 @@
 4. [Simple way to create virtual machines](#createvm)
 
 
-#Ownership of a public linux server <a name="ownership">
+# Ownership of a public linux server <a name="ownership">
 
-##Protect your SSH
+## Protect your SSH <a name="protect">
 https://community.hetzner.com/tutorials/securing-ssh
 
-#Managing a cluster of many nodes <a name="managing">
+# Managing a cluster of many nodes <a name="managing">
 
-## tmux for when you may leave before done
+## tmux for when you may leave before done <a name="tmux">
 https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/
 https://leanpub.com/the-tao-of-tmux/read
 
@@ -49,7 +49,7 @@ tmux attach -t 0
 **Scrolling through a session**
 Ctrl-b then [ then you can use your normal navigation keys to scroll around (eg. Up Arrow or PgDn). Press q to quit scroll mode.
 
-##notepad automation and oneliners <a name="automation">
+## notepad automation and oneliners <a name="automation">
 
 Oneliner: Creating a file with contents
 ```
@@ -147,7 +147,7 @@ Difference(%)     -0.62%      5.01%        5.60%        5.44%       0.00%
 5000 Warnings  Recv buffer: 100.00KB (Requested:50.00KB) No such file or directory
 ```
 
-#Simple way to create virtual machines, with or without cloud-init <a name="createvm">
+# Simple way to create virtual machines, with or without cloud-init <a name="createvm">
 Great to get started on workload images, test your virtualisation platform or just for generic inspiration
 
 **Get your rhel7 qcow2 image here https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.7/x86_64/product-software
@@ -155,7 +155,7 @@ Then put it in the iso dir as rhel-server-7.6-x86_64-kvm.qcow2**
 
 Do this on a libvirt kvm host; could be your hetzner box
 
-###Without Cloud-Init (to run idm or monitoring services)
+## Without Cloud-Init (to run idm or monitoring services)
 ```
 yum install -y libvirt virt-install libguestfs-tools-c
 mkdir virt-machines
