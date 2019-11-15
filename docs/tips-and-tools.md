@@ -68,3 +68,15 @@ while read HOST ssh $HOST "uname -a" < /dev/null; done < servers.txt
 ```
 The https service on 'server-running-service-on-https' will be available on https://localhost
 https://www.ssh.com/ssh/tunneling/example
+
+## Benchmarking!
+Install uperf for benchmark test
+
+Configure repositories
+```
+curl https://copr.fedorainfracloud.org/coprs/jtudelag/uperf/repo/epel-7/jtudelag-uperf-epel-7.repo -o /etc/yum.repos.d/jtudelag-uperf-epel-7.repo\
+```
+
+Install uperf
+```yum install -y uperf```
+ok
