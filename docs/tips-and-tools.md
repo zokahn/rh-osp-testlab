@@ -1,12 +1,13 @@
 # Table of Contents
-1. ["Ownership of a public linux server"](#ownership)
-   - [Protect your SSH](##Protect your SSH)
-2. [Managing a cluster of many nodes](#Managing a cluster of many nodes)
-   - [tmux for when you leave before done](## tmux for when you may leave before done)
-   - [notepad automation and oneliners](##notepad automation and oneliners)
+1. [Ownership of a public linux server](#ownership)
+   - [Protect your SSH](#protect)
+2. [Managing a cluster of many nodes](#managing)
+   - [tmux for when you leave before done](#tmux)
+   - [notepad automation and oneliners](#automation)
+   - [SSH tunnels to access nodes behind a jump host](#sshtunnel)
 3. [Benchmarking](#Benchmarking!)
-   - [Max throughput with uperf](##max throughput with uperf)
-4. [Simple way to create virtual machines](#Simple way to create virtual machines)
+   - [Max throughput with uperf](#uperf)
+4. [Simple way to create virtual machines](#createvm)
 
 
 #Ownership of a public linux server <a name="ownership">
@@ -14,7 +15,7 @@
 ##Protect your SSH
 https://community.hetzner.com/tutorials/securing-ssh
 
-#Managing a cluster of many nodes
+#Managing a cluster of many nodes <a name="managing">
 
 ## tmux for when you may leave before done
 https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/
@@ -48,7 +49,7 @@ tmux attach -t 0
 **Scrolling through a session**
 Ctrl-b then [ then you can use your normal navigation keys to scroll around (eg. Up Arrow or PgDn). Press q to quit scroll mode.
 
-##notepad automation and oneliners
+##notepad automation and oneliners <a name="automation">
 
 Oneliner: Creating a file with contents
 ```
@@ -72,7 +73,7 @@ Running commands over many machines
 while read HOST ssh $HOST "uname -a" < /dev/null; done < servers.txt
 ```
 
-## ssh tunnelling to access services directly behind a jump host
+## ssh tunnelling to access services directly behind a jump host <a name="sshtunnel">
 
 ```
  ssh -L 443:server-running-service-on-https:443 root@jumphost.example.com
@@ -82,7 +83,7 @@ https://www.ssh.com/ssh/tunneling/example
 
 #Benchmarking!
 
-##max throughput with uperf
+##max throughput with uperf <a name="uperf">
 Install uperf for benchmark test
 
 Configure repositories
@@ -146,7 +147,7 @@ Difference(%)     -0.62%      5.01%        5.60%        5.44%       0.00%
 5000 Warnings  Recv buffer: 100.00KB (Requested:50.00KB) No such file or directory
 ```
 
-#Simple way to create virtual machines, with or without cloud-init
+#Simple way to create virtual machines, with or without cloud-init <a name="createvm">
 Great to get started on workload images, test your virtualisation platform or just for generic inspiration
 
 **Get your rhel7 qcow2 image here https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.7/x86_64/product-software
