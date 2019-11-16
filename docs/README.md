@@ -5,16 +5,51 @@ This can be a rented host at Hetzner. It needs at least 64GB of ram, more is bet
 The virt-host does not need to be RHEL. With Hetzner it makes sense to run the robot driven installation of CentOS.
 
 Please mind the following additional chapters to this Readme
+
+# Table of Contents
+1. [Prerequisites](#prereq)
+   - [Virthost](#virthost)
+   - [VirtualBMC](#virtualbmc)
+   - [Installing the libvirt/KVM packages](#virtpack)
+2. [Deploying skeleton virtual infrastructure](#skeleton)
+   - [Create overcloud, underlay networks](#laynetworks)
+   - [Create Virtual Machines](#vms)
+   - [Attaching IPMI translation](#hookvms)
+3. [Undercloud](#undercloud)
+   - [Subscription manager, repos and users](#subsrepos)
+   - [Creating the 'stack' undercloud env](#stacking)
+   - [Populating the local registry with container images](#containerreg)
+   - [Adding the overcloud nodes](#addingnodes)
+   - [Populating the local registry with container images](#containerreg)
+4. [Overcloud configuration](#overcloudconfig)
+   - [Display and use introspection data](#spectiondata)
+   - [Templates! Preparing them](#templates)
+   - [Running the deployment process](#deployment)
+
+Also see:
 - [Tips and tools](tips-and-tools.md)
-  - protect your ssh
-  - tmux for when you may leave before done
-  -
--
+
+The current plan for this testlab project
+- Have a coherent working director deployed testlab 
+   - includes multi controller
+   - include ceph
+   - include different types of provider and tenant networks
+- Have it as a basis for OpenStack centric talks
+   - Deployment itself
+   - promoting having test environments
+   - Monitoring of openstack
+   - running OpenShift on OpenStack
 
 
-## Prerequisites
 
-### Virtualbmc
+
+
+## Prerequisites <a name="prereq">
+
+### virthost  <a name="virthost">
+Some words on the virthost
+
+### VirtualBMC <a name="virtualbmc">
 In this case the virt-host is deployed in Hetzner as CentOS. There is a VBMC package that connects a IPMI interface to the Libvirt/KVM controlplane. The VBMC package can be found in the upstream Red Hat OpenStack repo; RDO.
 
 ```
@@ -30,17 +65,17 @@ Adding packages used later on.
 yum -y install screen vim
 ```
 
-## Installing the libvirt/KVM packages
+### Installing the libvirt/KVM packages <a name="virtpack">
 ```
 yum install -y qemu-kvm libvirt libvirt-python libguestfs-tools virt-install
 systemctl enable libvirtd
 systemctl start libvirtd
 ```
 
-## Deploying skeleton virtual infrastructure
+## Deploying skeleton virtual infrastructure <a name="skeleton">
 Starting point for this stage is an empty kvm/libvirt machine. If you already have some networks and vm's loaded on this machine you should consider reviewing the memory requirements, linux bridge numbers in the scripts (virbr). The scripts also remove virtual machines with the used names (controler1-3, compute1,2) before adding to have a rinse and repeat effect.
 
-### Create overcloud, underlay network
+### Create overcloud, underlay networks <a name="laynetworks">
 Next to the libvirt nat network used as default we also use the following virtual networks for openstack
  - deployment
  - external
@@ -70,9 +105,10 @@ cd scripts
 ```
 
 
-### Create Virtual Machines
+### Create Virtual Machines <a name="vms">
 Virtual machines as skeleton systems, no need to deploy a OS. The machines will receive their OS via PXE boot in director. They do need to hook up with the correct networks, in a coherent order across the landscape.
-### Attaching IPMI translation between Libvirt/KVM and VBMC
+
+### Attaching IPMI translation between Libvirt/KVM and VBMC <a name="hookvbmc">
 ```
 vbmc add compute1 --address 192.168.122.1 --port 6230 --username admin --password password
 vbmc add controller1 --address 192.168.122.1 --port 6231 --username admin --password password
@@ -85,9 +121,9 @@ ipmitool -I lanplus -U admin -P password -H 192.168.122.1 -p 6230 power on
 This has been automated
 
 
-## Undercloud
+## Undercloud <a name="undercloud">
 
-### Subscription manager, repos and users
+### Subscription manager, repos and users <a name="subsrepos">
 ```
 subscription-manager register
 subscription-manager attach --pool=8a85f98c60c2c2b40160c32447481b48
@@ -114,7 +150,8 @@ sudo systemctl start ntpd
 ```
 
 
-### as user stack
+### Creating the 'stack' undercloud env <a name="stacking">
+as user stack
 ```
 mkdir ~/images
 mkdir ~/templates
@@ -138,7 +175,7 @@ cp \
   ~/undercloud.conf
 ```
 
-### Populating the local registry with container images
+### Populating the local registry with container images <a name="containerreg">
 As the stack user on the undercloud node
 ```
 openstack overcloud container image prepare   --namespace=registry.access.redhat.com/rhosp13   --push-destination=10.100.0.1:8787   --prefix=openstack-   --tag-from-label {version}-{release}   --output-env-file=/home/stack/templates/overcloud_images.yaml   --output-images-file /home/stack/local_registry_images.yaml
@@ -161,7 +198,7 @@ source ~/stackrc
 openstack overcloud image upload --image-path ~/images
 ```
 
-### Adding the overcloud nodes
+### Adding the overcloud nodes <a name="addingnodes">
 
 ```
 openstack overcloud node import instackenv.json
@@ -180,9 +217,9 @@ abort running introspection
 openstack baremetal introspection abort overcloud-controller1
 ```
 
-## Overcloud configuration
+## Overcloud configuration <a name="overcloudconfig">
 
-### Display and use introspection data of overcloud nodes
+### Display and use introspection data <a name="spectiondata">
 In this multi-node deployment scenario it is important to assign boot disks for systems that have more then one drive. In our case the Ceph nodes have a bunch of disks. We need to assign /dev/vda as the root disk.
 
 See what disks are recognized during introspection
@@ -239,7 +276,7 @@ openstack baremetal node set ceph1 --property root_device='{"name": "/dev/vda"}'
 openstack baremetal node set ceph2 --property root_device='{"name": "/dev/vda"}'
 openstack baremetal node set ceph3 --property root_device='{"name": "/dev/vda"}'
 ```
-### Templates! Preparing then
+### Templates! Preparing then <a name="templates">
 This sequence is to be applied as the stack user, on the director node.
 
 ```
@@ -256,7 +293,7 @@ EOF
 
 
 
-### Running the deployment process
+### Running the deployment process <a name="deployment">
 
 ```
 #!/bin/bash
