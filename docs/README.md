@@ -20,7 +20,6 @@ Please mind the following additional chapters to this Readme
    - [Creating the 'stack' undercloud env](#stacking)
    - [Populating the local registry with container images](#containerreg)
    - [Adding the overcloud nodes](#addingnodes)
-   - [Populating the local registry with container images](#containerreg)
 4. [Overcloud configuration](#overcloudconfig)
    - [Display and use introspection data](#spectiondata)
    - [Templates! Preparing them](#templates)
@@ -30,7 +29,7 @@ Also see:
 - [Tips and tools](tips-and-tools.md)
 
 The current plan for this testlab project
-- Have a coherent working director deployed testlab 
+- Have a coherent working director deployed testlab
    - includes multi controller
    - include ceph
    - include different types of provider and tenant networks
