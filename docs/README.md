@@ -4,9 +4,10 @@ This can be a rented host at Hetzner. It needs at least 64GB of ram, more is bet
 
 The virt-host does not need to be RHEL. With Hetzner it makes sense to run the robot driven installation of CentOS.
 
-###Gitlab origin project, synced to github
+### Gitlab origin project, synced to github
+Create a branche to help with this project. Name it with something sensible.
+This project is being worked on, via Red Hat consulting gitlab, then pushed to Github to have more people access it. So Red Hatters, find it on my account on https://gitlab.consulting.redhat.com/
 
-Please mind the following additional chapters to this Readme
 
 # Table of Contents
 1. [Prerequisites](#prereq)
