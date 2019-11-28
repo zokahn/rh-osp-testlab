@@ -70,7 +70,7 @@ EOF
 
 Running commands over many machines
 ```
-while read HOST ssh $HOST "uname -a" < /dev/null; done < servers.txt
+while read HOST; do ssh $HOST "uname -a" < /dev/null; done < servers.txt
 ```
 
 ## ssh tunnelling to access services directly behind a jump host <a name="sshtunnel">
