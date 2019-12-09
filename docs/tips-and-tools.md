@@ -8,6 +8,7 @@
 3. [Benchmarking](#Benchmarking!)
    - [Max throughput with uperf](#uperf)
 4. [Simple way to create virtual machines](#createvm)
+5. [From a server list to a hosts file](#hostsfile)
 
 
 # Ownership of a public linux server <a name="ownership">
@@ -166,4 +167,8 @@ virt-customize -a rhel.qcow2  --uninstall cloud-init   -root-password password:L
 virt-install --ram 6096 --vcpus 4  --os-variant rhel7 --disk path=rhel.qcow2,device=disk,bus=virtio,format=qcow2   --noautoconsole --vnc  --network network:default  --name rhel   --cpu host,+vmx --dry-run --print-xml | tee rhel.xml
 virsh define --file  rhel.xml
 virsh start rhel
+```
+# From a server list to a hosts file <a name="hostsfile">
+```
+openstack server list -c Name -c Networks -f value | awk '/overcloud/ { gsub("ctlplane=",""); print $2" "$1; }' | sudo tee -a /etc/hosts
 ```
