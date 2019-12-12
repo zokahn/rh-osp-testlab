@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    {
+      "pm_user": "admin",
+      "pm_type": "pxe_ipmitool",
+      "pm_password": "password",
+      "pm_port": "6240",
+      "pm_addr": "ip addres",
+      "name": "node name",
+      "mac": [
+        "mac-address"
+      ]
+    }
+  ]
+}
