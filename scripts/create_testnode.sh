@@ -17,16 +17,16 @@ cat > /tmp/ifcfg-eth0 << EOF
 DEVICE=eth0
 BOOTPROTO=dhcp
 ONBOOT=yes
-MTU=9000
+MTU=1500
 EOF
 
 cat > /tmp/ifcfg-eth1 << EOF
 DEVICE=eth1
 BOOTPROTO=static
-IPADDR=172.20.0.10
+IPADDR=172.20.0.11
 PREFIX=24
 ONBOOT=yes
-MTU=9000
+MTU=1500
 EOF
 
 
