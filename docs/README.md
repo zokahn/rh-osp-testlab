@@ -2,12 +2,9 @@
 Deploy with director in a front to back howto, or at least a 'how i did it'. This document describes the deployment of a fully virtualized Red Hat OpenStack Platform. The director, controller(s) and compute(s) all run as virtual machines on a single host. This host needs to be bare-metal, it only needs one nic and one external IP.
 This can be a rented host at Hetzner. It needs at least 64GB of ram, more is better.
 
-The virt-host does not need to be RHEL. With Hetzner it makes sense to run the robot driven installation of CentOS.
+The virt-host does not need to be RHEL, same is possible with CentOS.
 
-### Gitlab origin project, synced to github
-Create a branche to help with this project. Name it with something sensible.
-This project is being worked on, via Red Hat consulting gitlab, then pushed to Github to have more people access it. So Red Hatters, find it on my account on https://gitlab.consulting.redhat.com/
-
+Update jul 2020: Updated to use RHEL8, OpenStack 16.
 
 # Table of Contents
 1. [Prerequisites](#prereq)
@@ -57,6 +54,74 @@ The virt host will have:
 - 256GB or SSD where NVME is preferred.
 - a single nic
 
+#### single NIC, two VLAN's, two Bridges config
+This virt-node will be able to run virtual machines with NIC's in different networks. For that we need to strip the IPv4 config from the original ifcfg file. Then we create the sub-interfaces to connect to the VLAN network, then we create the linux bridges with the local IPv4 addresses.
+Virtual machines will then be able to add the vNIC into the bridges. This can be extended to include Ceph Networks, or other specific workload networks.
+This configuration is quite specific for a network setup. No need for a 'managed' switch, unless you want to patch specific ports into a VLAN. If you have managed switch make sure you put the port used into 'trunk' mode, moving it from end-node mode.
+
+VLAN 1  = General network, with internet access
+VLAN 10 = Mock external network
+
+```
+NIC=enp1s0
+
+cat << EOF > /etc/sysconfig/network-scripts/ifcfg-$NIC
+TYPE="Ethernet"
+PROXY_METHOD="none"
+BROWSER_ONLY="no"
+BOOTPROTO="none"
+DEFROUTE="yes"
+IPV4_FAILURE_FATAL="no"
+NAME="$NIC"
+DEVICE="$NIC"
+ONBOOT="yes"
+BRIDGE=br0
+MTU="9000"
+
+
+cat << EOF > /etc/sysconfig/network-scripts/ifcfg-$NIC.1
+DEVICE=$NIC.1
+BOOTPROTO=none
+ONBOOT=yes
+MTU=9000
+VLAN=yes
+BRIDGE=br0_1
+EOF
+
+cat << EOF > /etc/sysconfig/network-scripts/ifcfg-$NIC.100
+DEVICE=$NIC.100
+BOOTPROTO=none
+ONBOOT=yes
+MTU=9000
+VLAN=yes
+BRIDGE=br1_100
+EOF
+
+cat << EOF > /etc/sysconfig/network-scripts/ifcfg-br0_1
+DEVICE=br0_1
+TYPE=Bridge
+IPADDR=192.168.178.113
+NETMASK=255.255.255.0
+GATEWAY=192.168.178.1
+DNS1=192.168.178.
+ONBOOT=yes
+MTU=9000
+BOOTPROTO=static
+DELAY=0
+EOF
+
+cat << EOF > /etc/sysconfig/network-scripts/ifcfg-br1_100
+DEVICE=br1_100
+TYPE=Bridge
+IPADDR=172.20.0.113
+NETMASK=255.255.255.0
+ONBOOT=yes
+MTU=9000
+BOOTPROTO=static
+DELAY=0
+EOF
+```
+
 #### Subscription and attachment
 RHEL8 works on a subscription based access to repos and package channels.
 ```
@@ -67,11 +132,23 @@ subscription-manager repos --disable=*
 subscription-manager repos --enable=rhel-8-for-x86_64-baseos-rpms   --enable=rhel-8-for-x86_64-appstream-rpms
 ```
 
+### Installing the libvirt/KVM packages <a name="virtpack">
+```
+yum install -y qemu-kvm libvirt libguestfs-tools virt-install
+systemctl enable libvirtd
+systemctl start libvirtd
+```
 
 ### VirtualBMC <a name="virtualbmc">
-In this case the virt-host is deployed in Hetzner as CentOS. There is a VBMC package that connects a IPMI interface to the Libvirt/KVM controlplane. The VBMC package can be found in the upstream Red Hat OpenStack repo; RDO.
+There is a VBMC package that connects a IPMI interface to the Libvirt/KVM controlplane. The VBMC package can be found in the upstream Red Hat OpenStack repo; RDO. In this case the virt-host is deployed with RHEL8, however the VirtualBMC program is not in any Red Hat managed repository. This is why we add the RDO repo.
+
+
 
 ```
+alternatives --set python /usr/bin/python3
+pip3 install virtualbmc
+
+
 yum install -y https://www.rdoproject.org/repos/rdo-release.rpm
 yum install -y python2-virtualbmc ipmitool
 systemctl start virtualbmc.service
@@ -83,14 +160,6 @@ Adding packages used later on.
 ```
 yum -y install screen vim
 ```
-
-### Installing the libvirt/KVM packages <a name="virtpack">
-```
-yum install -y qemu-kvm libvirt libvirt-python libguestfs-tools virt-install
-systemctl enable libvirtd
-systemctl start libvirtd
-```
-
 ## Deploying skeleton virtual infrastructure <a name="skeleton">
 Starting point for this stage is an empty kvm/libvirt machine. If you already have some networks and vm's loaded on this machine you should consider reviewing the memory requirements, linux bridge numbers in the scripts (virbr). The scripts also remove virtual machines with the used names (controler1-3, compute1,2) before adding to have a rinse and repeat effect.
 
