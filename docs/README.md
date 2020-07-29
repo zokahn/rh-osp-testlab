@@ -49,7 +49,24 @@ The current plan for this testlab project
 ## Prerequisites <a name="prereq">
 
 ### virthost  <a name="virthost">
-Some words on the virthost
+The virt host is based on RHEL8 or CentOS8. This section describes which packages are installed and what configuration is in place. For clarity the bare, manual configuration is documented, in production environments the focus would be on pushing the configuration via automation.
+
+The virt host will have:
+- a capable CPU i7
+- 64G+ memory
+- 256GB or SSD where NVME is preferred.
+- a single nic
+
+#### Subscription and attachment
+RHEL8 works on a subscription based access to repos and package channels.
+```
+RHN_USR=<rhn user>
+RHN_PASS=<passwd>
+subscription-manager register --username=$RHN_USR --password=$RHN_PASS --auto-attach
+subscription-manager repos --disable=*
+subscription-manager repos --enable=rhel-8-for-x86_64-baseos-rpms   --enable=rhel-8-for-x86_64-appstream-rpms
+```
+
 
 ### VirtualBMC <a name="virtualbmc">
 In this case the virt-host is deployed in Hetzner as CentOS. There is a VBMC package that connects a IPMI interface to the Libvirt/KVM controlplane. The VBMC package can be found in the upstream Red Hat OpenStack repo; RDO.
