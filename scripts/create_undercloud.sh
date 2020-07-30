@@ -46,7 +46,7 @@ virt-install --ram 8192 --vcpus 2 --os-variant rhel8.0 --accelerate\
   --import --graphics none  --console pty,target_type=serial --graphics=vnc\
   --network bridge=br0_1,model=virtio --name $VIRT_HOSTNAME \
   --network bridge=br1_100,model=virtio \
-  --cpu host,+vmx --extra-args 'console=ttyS0,115200n8 serial'\
+  --cpu host,+vmx \
   --dry-run --print-xml > /tmp/$VIRT_HOSTNAME.xml
 
 virsh define --file /tmp/$VIRT_HOSTNAME.xml
