@@ -168,7 +168,7 @@ systemctl start libvirtd
 ### VirtualBMC <a name="virtualbmc">
 There is a VBMC package that connects a IPMI interface to the Libvirt/KVM controlplane. The VBMC package can be found in the upstream Red Hat OpenStack repo; RDO. In this case the virt-host is deployed with RHEL8, however the VirtualBMC program is not in any Red Hat managed repository. This is why we add the RDO repo.
 
-Taken from: https://cloudnull.io/2019/05/vbmc/
+Taken from: https://cloudnull.io/2019/05/vbmc/ (Thank you for posting Kevin )
 
 ```
 yum install -y python3-virtualenv
@@ -214,6 +214,9 @@ systemctl start vbmcd.service
 systemctl status vbmcd.service
 ```
 
+
+
+
 Adding packages used later on.
 ```
 yum -y install screen vim
@@ -254,20 +257,100 @@ cd scripts
 ### Create Virtual Machines <a name="vms">
 Virtual machines as skeleton systems, no need to deploy a OS. The machines will receive their OS via PXE boot in director. They do need to hook up with the correct networks, in a coherent order across the landscape.
 
-### Attaching IPMI translation between Libvirt/KVM and VBMC <a name="hookvbmc">
+Run the script to create the skeleton systems:
 ```
-vbmc add compute1 --address 192.168.122.1 --port 6230 --username admin --password password
-vbmc add controller1 --address 192.168.122.1 --port 6231 --username admin --password password
-vbmc start compute1
-vbmc start controller1
+./create_openstack_nodes.sh
+Kicking controller1 into gear
+Domain controller1 destroyed
 
-ipmitool -I lanplus -U admin -P password -H 192.168.122.1 -p 6230 power start
-ipmitool -I lanplus -U admin -P password -H 192.168.122.1 -p 6230 power on
+Domain controller1 has been undefined
+
+
+Starting install...
+Domain installation still in progress. You can reconnect to
+the console to complete the installation process.
+Kicking controller2 into gear
+Domain controller2 destroyed
+
+Domain controller2 has been undefined
+
+
+Starting install...
+Domain installation still in progress. You can reconnect to
+the console to complete the installation process.
+Kicking controller3 into gear
+Domain controller3 destroyed
+
+Domain controller3 has been undefined
+
+
+Starting install...
+Domain installation still in progress. You can reconnect to
+the console to complete the installation process.
+Kicking compute1 into gear
+Domain compute1 destroyed
+
+Domain compute1 has been undefined
+
+
+Starting install...
+Domain installation still in progress. You can reconnect to
+the console to complete the installation process.
+Kicking compute2 into gear
+Domain compute2 destroyed
+
+Domain compute2 has been undefined
+
+
+Starting install...
+Domain installation still in progress. You can reconnect to
+the console to complete the installation process.
 ```
-This has been automated
+Check if they are running
+
+```
+[root@shuttle scripts]# virsh list
+setlocale: No such file or directory
+Id    Name                           State
+----------------------------------------------------
+10    controller1                    running
+11    controller2                    running
+12    controller3                    running
+13    compute1                       running
+14    compute2                       running
+```
+
+### Attaching IPMI translation between Libvirt/KVM and VBMC <a name="hookvbmc">
+
+Run the script to add the virtual machines to vbmc.
+```
+./connect_dom_vbmc.sh
+Kicking controller1 into gear in VirtualBMC with port 6230
+Kicking controller2 into gear in VirtualBMC with port 6231
+Kicking controller3 into gear in VirtualBMC with port 6232
+Kicking compute1 into gear in VirtualBMC with port 6233
+Kicking compute2 into gear in VirtualBMC with port 6234
+```
+
+Test the IPMI tools and connections
+```
+yum -y install ipmitool
+
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.122.1 -p 6230 power status
+```
+If things are working you can use the ipmitool to switch the VMs off to save resources for now
+
+```
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.122.1 -p 6230 power power off
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.122.1 -p 6231 power power off
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.122.1 -p 6232 power power off
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.122.1 -p 6233 power power off
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.122.1 -p 6234 power power off
+```
 
 
 ## Undercloud <a name="undercloud">
+The following should be executed on the undercloud node.
 
 ### Subscription manager, repos and users <a name="subsrepos">
 ```
