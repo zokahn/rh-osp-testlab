@@ -1,4 +1,7 @@
 #!/bin/bash
+VIRT_DIR=/local/virt
+
+VIRT_DOMAIN='zokahn.local'
 
 
 nodes="controller1 controller2 controller3"
@@ -7,13 +10,12 @@ for node in $nodes; do
     virsh destroy $node
     virsh undefine $node
     screen -d -m -S $node bash -c "virt-install --name=$node --ram=6144 --vcpus=2 \
-                --disk path=/local/virt-machines/$node.dsk,size=100,bus=virtio \
+                --disk path=$VIRT_DIR/$node.dsk,size=100,bus=virtio \
                 --pxe --noautoconsole --graphics=vnc --hvm \
-                --network network=deployment,model=virtio \
-                --network network=openstack-api,model=virtio \
-                --network network=tenant,model=virtio \
-                --network network=external,model=virtio \
-                --os-variant=rhel7"
+                --network bridge=br1_100,model=virtio #provisioning \
+                --network bridge=br2_110,model=virtio #trunk4vlans \
+                --network bridge=br0_1,model=virtio #external \
+                --os-variant=rhel8.0"
 done
 
 nodes="compute1 compute2"
@@ -22,11 +24,9 @@ for node in $nodes; do
     virsh destroy $node
     virsh undefine $node
     screen -d -m -S $node bash -c "virt-install --name=$node --ram=2048 --vcpus=2 \
-                --disk path=/local/virt-machines/$node.dsk,size=100,bus=virtio \
+                --disk path=$VIRT_DIR/$node.dsk,size=100,bus=virtio \
                 --pxe --noautoconsole --graphics=vnc --hvm \
-                --network network=deployment,model=virtio \
-                --network network=openstack-api,model=virtio \
-                --network network=tenant,model=virtio \
-                --network network=external,model=virtio \
-                --os-variant=rhel7"
+                --network bridge=br1_100,model=virtio #provisioning \
+                --network bridge=br2_110,model=virtio #trunk4vlans \
+                --os-variant=rhel8.0"
 done

@@ -105,13 +105,22 @@ VLAN=yes
 BRIDGE=br1_100
 EOF
 
+cat << EOF > /etc/sysconfig/network-scripts/ifcfg-$NIC.110
+DEVICE=$NIC.110
+BOOTPROTO=none
+ONBOOT=yes
+MTU=9000
+VLAN=yes
+BRIDGE=br2_110
+EOF
+
 cat << EOF > /etc/sysconfig/network-scripts/ifcfg-br0_1
 DEVICE=br0_1
 TYPE=Bridge
 IPADDR=192.168.178.113
 NETMASK=255.255.255.0
 GATEWAY=192.168.178.1
-DNS1=192.168.178.95
+DNS1=192.168.178.87
 ONBOOT=yes
 MTU=9000
 BOOTPROTO=static
@@ -126,6 +135,15 @@ NETMASK=255.255.255.0
 ONBOOT=yes
 MTU=9000
 BOOTPROTO=static
+DELAY=0
+EOF
+
+cat << EOF > /etc/sysconfig/network-scripts/ifcfg-br2_110
+DEVICE=br2_110
+TYPE=Bridge
+ONBOOT=yes
+MTU=9000
+BOOTPROTO=none
 DELAY=0
 EOF
 ```

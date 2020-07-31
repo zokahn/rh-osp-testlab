@@ -38,8 +38,6 @@ MTU=9000
 #trunk for osp vlan
 EOF
 
-
-
 virt-customize -a $NODE_NAME.qcow2 \
   --hostname $NODE_NAME.$VIRT_DOMAIN \
   --root-password password:r3dh4t1! \
