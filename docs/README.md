@@ -168,18 +168,50 @@ systemctl start libvirtd
 ### VirtualBMC <a name="virtualbmc">
 There is a VBMC package that connects a IPMI interface to the Libvirt/KVM controlplane. The VBMC package can be found in the upstream Red Hat OpenStack repo; RDO. In this case the virt-host is deployed with RHEL8, however the VirtualBMC program is not in any Red Hat managed repository. This is why we add the RDO repo.
 
-
+Taken from: https://cloudnull.io/2019/05/vbmc/
 
 ```
-alternatives --set python /usr/bin/python3
-pip3 install virtualbmc
+yum install -y python3-virtualenv
+python3 -m virtualenv --system-site-packages --download /opt/vbmc
+/opt/vbmc/bin/pip install virtualbmc
 
 
-yum install -y https://www.rdoproject.org/repos/rdo-release.rpm
-yum install -y python2-virtualbmc ipmitool
-systemctl start virtualbmc.service
-systemctl enable virtualbmc.service
-systemctl status virtualbmc.service -l
+cat << EOF > /etc/systemd/system/vbmcd.service
+[Install]
+WantedBy = multi-user.target
+
+[Service]
+BlockIOAccounting = True
+CPUAccounting = True
+ExecReload = /bin/kill -HUP $MAINPID
+ExecStart = /opt/vbmc/bin/vbmcd --foreground
+Group = root
+MemoryAccounting = True
+PrivateDevices = False
+PrivateNetwork = False
+PrivateTmp = False
+PrivateUsers = False
+Restart = on-failure
+RestartSec = 2
+Slice = vbmc.slice
+TasksAccounting = True
+TimeoutSec = 120
+Type = simple
+User = root
+
+[Unit]
+After = libvirtd.service
+After = syslog.target
+After = network.target
+Description = vbmc service
+EOF
+
+systemctl daemon-reload
+systemctl enable vbmcd.service
+systemctl start vbmcd.service
+
+# Check the service is in fact running
+systemctl status vbmcd.service
 ```
 
 Adding packages used later on.
