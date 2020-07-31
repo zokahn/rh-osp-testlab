@@ -12,9 +12,9 @@ for node in $nodes; do
     virt-install --name=$node --ram=6144 --vcpus=2 \
                 --disk path=$VIRT_DIR/$node.dsk,size=100,bus=virtio \
                 --pxe --noautoconsole --graphics=vnc --hvm \
-                --network bridge=br1_100,model=virtio #provisioning \
-                --network bridge=br2_110,model=virtio #trunk4vlans \
-                --network bridge=br0_1,model=virtio #external \
+                --network bridge=br1_100,model=virtio \
+                --network bridge=br2_110,model=virtio \
+                --network bridge=br0_1,model=virtio \
                 --os-variant=rhel8.0
 done
 
@@ -26,7 +26,7 @@ for node in $nodes; do
     virt-install --name=$node --ram=2048 --vcpus=2 \
                 --disk path=$VIRT_DIR/$node.dsk,size=100,bus=virtio \
                 --pxe --noautoconsole --graphics=vnc --hvm \
-                --network bridge=br1_100,model=virtio #provisioning \
-                --network bridge=br2_110,model=virtio #trunk4vlans \
+                --network bridge=br1_100,model=virtio \
+                --network bridge=br2_110,model=virtio \
                 --os-variant=rhel8.0
 done
