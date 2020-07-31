@@ -59,23 +59,16 @@ This virt-node will be able to run virtual machines with NIC's in different netw
 Virtual machines will then be able to add the vNIC into the bridges. This can be extended to include Ceph Networks, or other specific workload networks.
 This configuration is quite specific for a network setup. No need for a 'managed' switch, unless you want to patch specific ports into a VLAN. If you have managed switch make sure you put the port used into 'trunk' mode, moving it from end-node mode.
 
-On the physical network
-VLAN 1  = General network, with internet access
-VLAN 100 = provisioning network
-VLAN 101 = trunk network, containing the 'trunked' VLAN networks below ()
-
-Within the OpenStack cluster
 
 Name | VLAN | Subnet | Gateway IP | lives on | Description
 ------------ | ------------- | ------------- | ------------- | ------------- | -------------
-ControlPlane | flat | 192.0.2.0/24 | 192.0.2.254 | Switch | Undercloud control plane and PXE boot
 External | 1 | 192.168.178.0/24 | 10.0.0.1 | Switch | Overcloud external API and floating IP
+Provisioning | 100 | 192.0.2.0/24 | 192.0.2.254 | Switch | Undercloud control plane and PXE boot
+osp_trunk | 110 | NA | NA | Switch | VLAN functioning as trunk to carry the VLANs below
 InternalApi | 20 | 172.17.0.0/24 | NA | Trunk, VLAN 101 | Overcloud internal API endpoints
 Storage | 30 | 172.18.0.0/24 | NA | Trunk, VLAN 101 | Storage access network
 StorageMgmt | 40 | 172.19.0.0/24 | NA | Trunk, VLAN 101 | Internal storage cluster network
 Tenant | 50 | 172.16.0.0/24 | NA | Trunk, VLAN 101 | Network for tenant tunnels
-
-
 
 
 ```
