@@ -49,7 +49,7 @@ The current plan for this testlab project
 The virt host is based on RHEL8 or CentOS8. This section describes which packages are installed and what configuration is in place. For clarity the bare, manual configuration is documented, in production environments the focus would be on pushing the configuration via automation.
 
 The virt host will have:
-- a capable CPU i7
+- a capable CPU like Intel i7
 - 64G+ memory
 - 256GB or SSD where NVME is preferred.
 - a single nic
@@ -59,8 +59,22 @@ This virt-node will be able to run virtual machines with NIC's in different netw
 Virtual machines will then be able to add the vNIC into the bridges. This can be extended to include Ceph Networks, or other specific workload networks.
 This configuration is quite specific for a network setup. No need for a 'managed' switch, unless you want to patch specific ports into a VLAN. If you have managed switch make sure you put the port used into 'trunk' mode, moving it from end-node mode.
 
+On the physical network
 VLAN 1  = General network, with internet access
-VLAN 10 = Mock external network
+VLAN 100 = provisioning network
+VLAN 101 = trunk network, containing the 'trunked' VLAN networks below ()
+
+Within the OpenStack cluster
+**Name | VLAN | Subnet | Gateway IP | lives on | Description**
+ControlPlane | flat | 192.0.2.0/24 | 192.0.2.254 | Switch | Undercloud control plane and PXE boot
+External        1     192.168.178.0/24   10.0.0.1       Switch             Overcloud external API and floating IP
+InternalApi     20     172.17.0.0/24      NA            Trunk, VLAN 101    Overcloud internal API endpoints
+Storage         30     172.18.0.0/24      NA            Trunk, VLAN 101    Storage access network
+StorageMgmt     40     172.19.0.0/24      NA            Trunk, VLAN 101    Internal storage cluster network
+Tenant          50     172.16.0.0/24      NA            Trunk, VLAN 101    Network for tenant tunnels
+
+
+
 
 ```
 NIC=enp1s0
@@ -75,7 +89,6 @@ IPV4_FAILURE_FATAL="no"
 NAME="$NIC"
 DEVICE="$NIC"
 ONBOOT="yes"
-BRIDGE=br0
 MTU="9000"
 
 
@@ -103,7 +116,7 @@ TYPE=Bridge
 IPADDR=192.168.178.113
 NETMASK=255.255.255.0
 GATEWAY=192.168.178.1
-DNS1=192.168.178.
+DNS1=192.168.178.95
 ONBOOT=yes
 MTU=9000
 BOOTPROTO=static
@@ -213,8 +226,15 @@ This has been automated
 
 ### Subscription manager, repos and users <a name="subsrepos">
 ```
-subscription-manager register
-subscription-manager attach --pool=8a85f98c60c2c2b40160c32447481b48
+RHN_USR=<rhn username>
+RHN_PASS=<password>
+subscription-manager register --username=$RHN_USR --password=$RHN_PASS
+subscription-manager attach --pool=8a85f98c60c2c2b40160c324e7681d8f
+subscription-manager release --set=8.2
+subscription-manager repos --disable=*
+subscription-manager repos --enable=rhel-8-for-x86_64-baseos-eus-rpms --enable=rhel-8-for-x86_64-appstream-eus-rpms --enable=rhel-8-for-x86_64-highavailability-eus-rpms --enable=ansible-2.9-for-rhel-8-x86_64-rpms --enable=openstack-16.1-for-rhel-8-x86_64-rpms --enable=fast-datapath-for-rhel-8-x86_64-rpms
+
+yum update -y && reboot
 
 useradd stack
 passwd stack #add a password for yourself
@@ -231,8 +251,6 @@ sudo yum install ntp
 restrict 192.168.1.0 netmask 255.255.255.0 nomodify notrap
 
 
-
-
 sudo systemctl enable ntpd
 sudo systemctl start ntpd
 ```
@@ -244,11 +262,7 @@ as user stack
 mkdir ~/images
 mkdir ~/templates
 
-sudo subscription-manager repos --disable=*
-sudo subscription-manager repos --enable=rhel-7-server-rpms --enable=rhel-7-server-extras-rpms --enable=rhel-7-server-rh-common-rpms --enable=rhel-ha-
-for-rhel-7-server-rpms --enable=rhel-7-server-openstack-13-rpms
-
-sudo yum install -y python-tripleoclient
+sudo yum install -y python3-tripleoclient
 ```
 Also enable the Ceph repo and install Ceph Ansible
 ```
@@ -259,12 +273,26 @@ sudo yum install -y ceph-ansible
 Copy the sample file or the last one used in notes/undercloud.conf
 ```
 cp \
-  /usr/share/instack-undercloud/undercloud.conf.sample \
+  /usr/share/python-tripleoclient/undercloud.conf.sample \
   ~/undercloud.conf
 ```
 
 ### Populating the local registry with container images <a name="containerreg">
 As the stack user on the undercloud node
+
+```
+openstack tripleo container image prepare default \
+  --local-push-destination \
+  --output-env-file containers-prepare-parameter.yaml
+```
+Make sure you add your access.redhat.com credentials to the containers-prepare-parameter.yaml:
+(replace my_username and my_password with a valid account and password, same as you use to register systems to rhn)
+```
+ContainerImageRegistryCredentials:
+   registry.redhat.io:
+     my_username: my_password
+```
+
 ```
 openstack overcloud container image prepare   --namespace=registry.access.redhat.com/rhosp13   --push-destination=10.100.0.1:8787   --prefix=openstack-   --tag-from-label {version}-{release}   --output-env-file=/home/stack/templates/overcloud_images.yaml   --output-images-file /home/stack/local_registry_images.yaml
 
