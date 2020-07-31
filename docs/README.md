@@ -65,7 +65,10 @@ VLAN 100 = provisioning network
 VLAN 101 = trunk network, containing the 'trunked' VLAN networks below ()
 
 Within the OpenStack cluster
+
 **Name | VLAN | Subnet | Gateway IP | lives on | Description**
+------------ | ------------- | ------------- | ------------- | ------------- | -------------
+
 ControlPlane | flat | 192.0.2.0/24 | 192.0.2.254 | Switch | Undercloud control plane and PXE boot
 External        1     192.168.178.0/24   10.0.0.1       Switch             Overcloud external API and floating IP
 InternalApi     20     172.17.0.0/24      NA            Trunk, VLAN 101    Overcloud internal API endpoints
