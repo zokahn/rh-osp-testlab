@@ -9,7 +9,7 @@
             "pm_type":"ipmi",
             "pm_user":"admin",
             "pm_password":"Wond3rfulWorld",
-            "pm_addr":"192.168.122.1",
+            "pm_addr":"192.168.178.113",
             "pm_port":"6230"
         },
         {
@@ -21,7 +21,7 @@
             "pm_type":"ipmi",
             "pm_user":"admin",
             "pm_password":"Wond3rfulWorld",
-            "pm_addr":"192.168.122.1",
+            "pm_addr":"192.168.178.113",
             "pm_port":"6231"
         },
         {
@@ -33,7 +33,7 @@
             "pm_type":"ipmi",
             "pm_user":"admin",
             "pm_password":"Wond3rfulWorld",
-            "pm_addr":"192.168.122.1",
+            "pm_addr":"192.168.178.113",
             "pm_port":"6232"
         },
         {
@@ -45,7 +45,7 @@
             "pm_type":"ipmi",
             "pm_user":"admin",
             "pm_password":"Wond3rfulWorld",
-            "pm_addr":"192.168.122.1",
+            "pm_addr":"192.168.178.113",
             "pm_port":"6233"
         },
         {
@@ -57,7 +57,7 @@
             "pm_type":"ipmi",
             "pm_user":"admin",
             "pm_password":"Wond3rfulWorld",
-            "pm_addr":"192.168.122.1",
+            "pm_addr":"192.168.178.113",
             "pm_port":"6234"
         }
     ]
