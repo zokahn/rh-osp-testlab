@@ -13,3 +13,29 @@
 |default.rgw.meta|Replicated|3|56|0.1|100|32
 |default.rgw.log|Replicated|3|56|0.1|100|32
 |===
+
+
+
+plop
+
+[options="header", cols='1h,2,2']
+|===
+| ^|3 OSD nodes ^|4 OSD nodes
+
+.^|1 OSD node lost
+a|I/O: Available (after remapping)
+
+Replication: *Degraded*
+a|I/O: Available
+
+Replication: Clean (after remapping)
+
+.^|2 OSD nodes lost
+a|I/O: *Stopped*
+
+Replication: *Degraded*
+a|I/O: Available (after remapping)
+
+Replication: *Degraded*
+|===
+.Comparison of 3 versus 4 OSD nodes
