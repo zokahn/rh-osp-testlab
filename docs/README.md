@@ -12,7 +12,6 @@ Update jul 2020: Updated to use RHEL8, OpenStack 16.
    - [VirtualBMC](#virtualbmc)
    - [Installing the libvirt/KVM packages](#virtpack)
 2. [Deploying skeleton virtual infrastructure](#skeleton)
-   - [Create overcloud, underlay networks](#laynetworks)
    - [Create Virtual Machines](#vms)
    - [Attaching IPMI translation](#hookvms)
 3. [Undercloud](#undercloud)
@@ -222,36 +221,7 @@ Adding packages used later on.
 yum -y install screen vim
 ```
 ## Deploying skeleton virtual infrastructure <a name="skeleton">
-Starting point for this stage is an empty kvm/libvirt machine. If you already have some networks and vm's loaded on this machine you should consider reviewing the memory requirements, linux bridge numbers in the scripts (virbr). The scripts also remove virtual machines with the used names (controler1-3, compute1,2) before adding to have a rinse and repeat effect.
-
-### Create overcloud, underlay networks <a name="laynetworks">
-Next to the libvirt nat network used as default we also use the following virtual networks for openstack
- - deployment
- - external
- - openstack-API
- - tenant
-
-These networks need exist before we can create the virtual machines. These networks are used in most OpenStack setups as a bare minimum. There is a script here to just add the networks to this config, you only need to run this once ever. It will only create the layer 2, IP's are assigned where needed by director.
-
-!Example do not run! -> this is what the scripts do:
-```
-virsh net-define osp-networks/external.xml
-virsh net-autostart external
-virsh net-start external
-```
-Where this is the contents of the external.xml
-```
-<network>
-  <name>external</name>
-  <bridge name="virbr6"/>
-</network>
-```
-
-Run this on the virt host
-```
-cd scripts
-./create_openstack_networks.sh
-```
+Starting point for this stage is an empty kvm/libvirt machine. If you already have some networks and vm's loaded on this machine you should consider reviewing the memory requirements. The scripts also remove virtual machines with the used names (controler1-3, compute1,2) before adding to have a rinse and repeat effect.
 
 
 ### Create Virtual Machines <a name="vms">
