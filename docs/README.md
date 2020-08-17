@@ -327,7 +327,7 @@ The following should be executed on the undercloud node.
 RHN_USR=<rhn username>
 RHN_PASS=<password>
 subscription-manager register --username=$RHN_USR --password=$RHN_PASS
-subscription-manager attach --pool=8a85f98c60c2c2b40160c324e7681d8f
+subscription-manager attach --pool=<poolid>
 subscription-manager release --set=8.2
 subscription-manager repos --disable=*
 subscription-manager repos --enable=rhel-8-for-x86_64-baseos-eus-rpms --enable=rhel-8-for-x86_64-appstream-eus-rpms --enable=rhel-8-for-x86_64-highavailability-eus-rpms --enable=ansible-2.9-for-rhel-8-x86_64-rpms --enable=openstack-16.1-for-rhel-8-x86_64-rpms --enable=fast-datapath-for-rhel-8-x86_64-rpms

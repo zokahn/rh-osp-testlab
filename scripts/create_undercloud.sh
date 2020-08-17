@@ -2,7 +2,7 @@
 VIRT_HOSTNAME=director
 IMAGES_DIR=/local/iso
 VIRT_DIR=/local/virt
-OFFICIAL_IMAGE=rhel-8.1-x86_64-kvm.qcow2
+OFFICIAL_IMAGE=rhel-8.2-x86_64-kvm.qcow2
 PASSWORD_FOR_VMS='r3dh4t1!'
 VIRT_DOMAIN='zokahn.local'
 
@@ -12,8 +12,13 @@ rm -f ${VIRT_DIR}/$VIRT_HOSTNAME.qcow2 > /dev/null 2>&1
 
 
 cd $VIRT_DIR
-qemu-img create -f qcow2 $VIRT_HOSTNAME.qcow2 50G
+#create root disk
+qemu-img create -f qcow2 $VIRT_HOSTNAME.qcow2 100G
 virt-resize --expand /dev/sda1 /$IMAGES_DIR/$OFFICIAL_IMAGE $VIRT_HOSTNAME.qcow2
+#create data disk
+qemu-img create -f qcow2 $NODE_NAME-data.qcow2 100G
+
+
 
 cat > /tmp/ifcfg-eth0 << EOF
 DEVICE=eth0
@@ -41,9 +46,10 @@ virt-customize -a $VIRT_HOSTNAME.qcow2 \
   --timezone Europe/Amsterdam \
   --selinux-relabel
 
-virt-install --ram 8192 --vcpus 2 --os-variant rhel8.0 --accelerate\
+virt-install --ram 8192 --vcpus 2 --os-variant rhel8.0 --accelerate \
   --disk path=$VIRT_DIR/$VIRT_HOSTNAME.qcow2,device=disk,bus=virtio,format=qcow2 \
-  --import --graphics none  --console pty,target_type=serial --graphics=vnc\
+  --disk path=$VIRT_DIR/$NODE_NAME-data.qcow2,device=disk,bus=virtio,format=qcow2 \
+  --import --graphics none  --console pty,target_type=serial --graphics=vnc \
   --network bridge=br0_1,model=virtio --name $VIRT_HOSTNAME \
   --network bridge=br1_100,model=virtio \
   --cpu host,+vmx \
