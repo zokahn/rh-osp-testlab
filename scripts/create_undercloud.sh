@@ -16,7 +16,7 @@ cd $VIRT_DIR
 qemu-img create -f qcow2 $VIRT_HOSTNAME.qcow2 100G
 virt-resize --expand /dev/sda1 /$IMAGES_DIR/$OFFICIAL_IMAGE $VIRT_HOSTNAME.qcow2
 #create data disk
-qemu-img create -f qcow2 $NODE_NAME-data.qcow2 100G
+qemu-img create -f qcow2 $VIRT_HOSTNAME-data.qcow2 100G
 
 
 
@@ -48,7 +48,7 @@ virt-customize -a $VIRT_HOSTNAME.qcow2 \
 
 virt-install --ram 8192 --vcpus 2 --os-variant rhel8.0 --accelerate \
   --disk path=$VIRT_DIR/$VIRT_HOSTNAME.qcow2,device=disk,bus=virtio,format=qcow2 \
-  --disk path=$VIRT_DIR/$NODE_NAME-data.qcow2,device=disk,bus=virtio,format=qcow2 \
+  --disk path=$VIRT_DIR/$VIRT_HOSTNAME-data.qcow2,device=disk,bus=virtio,format=qcow2 \
   --import --graphics none  --console pty,target_type=serial --graphics=vnc \
   --network bridge=br0_1,model=virtio --name $VIRT_HOSTNAME \
   --network bridge=br1_100,model=virtio \
