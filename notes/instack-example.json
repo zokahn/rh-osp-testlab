@@ -2,145 +2,57 @@
   "nodes": [
     {
       "pm_user": "admin",
-      "capabilities": "profile:ceph-storage,boot_option:local",
-      "name": "overcloud-ceph1",
-      "pm_addr": "10.32.4.233",
-      "pm_password": "Wond3rfulWorld",
-      "pm_type": "pxe_ipmitool",
-      "mac": [
-        "E4:43:4B:96:B7:96"
-      ]
-    },
-    {
-      "pm_user": "admin",
-      "capabilities": "profile:ceph-storage,boot_option:local",
-      "name": "overcloud-ceph2",
-      "pm_addr": "10.32.4.234",
-      "pm_password": "Wond3rfulWorld",
-      "pm_type": "pxe_ipmitool",
-      "mac": [
-        "E4:43:4B:96:B7:30"
-      ]
-    },
-    {
-      "pm_user": "admin",
-      "capabilities": "profile:ceph-storage,boot_option:local",
-      "name": "overcloud-ceph3",
-      "pm_addr": "10.32.4.235",
-      "pm_password": "Wond3rfulWorld",
-      "pm_type": "pxe_ipmitool",
-      "mac": [
-        "E4:43:4B:96:BE:86"
-      ]
-    },
-    {
-      "pm_user": "admin",
-      "capabilities": "profile:ceph-storage,boot_option:local",
-      "name": "overcloud-ceph4",
-      "pm_addr": "10.32.4.240",
-      "pm_password": "Wond3rfulWorld",
-      "pm_type": "pxe_ipmitool",
-      "mac": [
-        "E4:43:4B:99:03:0E"
-      ]
-    },
-    {
-      "pm_user": "admin",
-      "capabilities": "profile:ceph-storage,boot_option:local",
-      "name": "overcloud-ceph5",
-      "pm_addr": "10.32.4.241",
-      "pm_password": "Wond3rfulWorld",
-      "pm_type": "pxe_ipmitool",
-      "mac": [
-        "E4:43:4B:98:F2:A8"
-      ]
-    },
-    {
-      "pm_user": "admin",
-      "capabilities": "profile:ceph-storage,boot_option:local",
-      "name": "overcloud-ceph6",
-      "pm_addr": "10.32.4.242",
-      "pm_password": "Wond3rfulWorld",
-      "pm_type": "pxe_ipmitool",
-      "mac": [
-        "E4:43:4B:98:F2:86"
-      ]
-    },
-    {
-      "pm_user": "admin",
       "capabilities": "profile:compute,boot_option:local",
       "name": "overcloud-compute0",
-      "pm_addr": "10.32.4.230",
+      "pm_addr": "192.168.178.113",
       "pm_password": "Wond3rfulWorld",
       "pm_type": "pxe_ipmitool",
       "mac": [
-        "E4:43:4B:97:56:CA"
+        "52:54:00:45:bd:2f"
       ]
     },
     {
       "pm_user": "admin",
       "capabilities": "profile:compute,boot_option:local",
       "name": "overcloud-compute1",
-      "pm_addr": "10.32.4.232",
+      "pm_addr": "192.168.178.113",
       "pm_password": "Wond3rfulWorld",
       "pm_type": "pxe_ipmitool",
       "mac": [
-        "E4:43:4B:97:58:88"
-      ]
-    },
-    {
-      "pm_user": "admin",
-      "capabilities": "profile:compute,boot_option:local",
-      "name": "overcloud-compute2",
-      "pm_addr": "10.32.4.238",
-      "pm_password": "Wond3rfulWorld",
-      "pm_type": "pxe_ipmitool",
-      "mac": [
-        "E4:43:4B:98:F3:0E"
-      ]
-    },
-    {
-      "pm_user": "admin",
-      "capabilities": "profile:compute,boot_option:local",
-      "name": "overcloud-compute3",
-      "pm_addr": "10.32.4.239",
-      "pm_password": "Wond3rfulWorld",
-      "pm_type": "pxe_ipmitool",
-      "mac": [
-        "E4:43:4B:99:04:22"
+        "52:54:00:55:bd:2f"
       ]
     },
     {
       "pm_user": "admin",
       "capabilities": "profile:control,boot_option:local",
       "name": "overcloud-controller0",
-      "pm_addr": "10.32.4.229",
+      "pm_addr": "192.168.178.113",
       "pm_password": "Wond3rfulWorld",
       "pm_type": "pxe_ipmitool",
       "mac": [
-        "E4:43:4B:97:45:76"
+        "52:54:00:15:bd:2f"
       ]
     },
     {
       "pm_user": "admin",
       "capabilities": "profile:control,boot_option:local",
       "name": "overcloud-controller1",
-      "pm_addr": "10.32.4.236",
+      "pm_addr": "192.168.178.113",
       "pm_password": "Wond3rfulWorld",
       "pm_type": "pxe_ipmitool",
       "mac": [
-        "E4:43:4B:98:F3:30"
+        "52:54:00:25:bd:2f"
       ]
     },
     {
       "pm_user": "admin",
       "capabilities": "profile:control,boot_option:local",
       "name": "overcloud-controller2",
-      "pm_addr": "10.32.4.237",
+      "pm_addr": "192.168.178.113",
       "pm_password": "Wond3rfulWorld",
       "pm_type": "pxe_ipmitool",
       "mac": [
-        "E4:43:4B:98:FB:0E"
+        "52:54:00:35:bd:2f"
       ]
     }
   ]
