@@ -5,11 +5,11 @@ VIRT_DOMAIN='zokahn.local'
 
 
 nodes="controller1 controller2 controller3"
+NUM=1
 for node in $nodes; do
     echo "Kicking $node into gear"
     virsh destroy $node
     virsh undefine $node
-    NUM=1
     virt-install --name=$node --ram=6144 --vcpus=2 \
                 --disk path=$VIRT_DIR/$node.dsk,size=100,bus=virtio \
                 --pxe --noautoconsole --graphics=vnc --hvm \
@@ -21,11 +21,11 @@ for node in $nodes; do
 done
 
 nodes="compute1 compute2"
+NUM=4
 for node in $nodes; do
     echo "Kicking $node into gear"
     virsh destroy $node
     virsh undefine $node
-    NUM=4
     virt-install --name=$node --ram=4096 --vcpus=2 \
                 --disk path=$VIRT_DIR/$node.dsk,size=100,bus=virtio \
                 --pxe --noautoconsole --graphics=vnc --hvm \
