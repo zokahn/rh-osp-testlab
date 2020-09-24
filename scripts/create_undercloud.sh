@@ -1,6 +1,6 @@
 #!/bin/bash
 VIRT_HOSTNAME=director
-IMAGES_DIR=/mnt/utility/iso
+IMAGES_DIR=/local/iso
 VIRT_DIR=/local/virt
 OFFICIAL_IMAGE=rhel-8.2-x86_64-kvm.qcow2
 PASSWORD_FOR_VMS='r3dh4t1!'
