@@ -159,7 +159,7 @@ subscription-manager repos --enable=rhel-8-for-x86_64-baseos-rpms   --enable=rhe
 
 ### Installing the libvirt/KVM packages <a name="virtpack">
 ```
-yum install -y qemu-kvm libvirt libguestfs-tools virt-install
+yum install -y qemu-kvm libvirt libguestfs-tools virt-install libvirt-devel gcc
 systemctl enable libvirtd
 systemctl start libvirtd
 ```
@@ -170,7 +170,7 @@ There is a VBMC package that connects a IPMI interface to the Libvirt/KVM contro
 Taken from: https://cloudnull.io/2019/05/vbmc/ (Thank you for posting Kevin )
 
 ```
-yum install -y python3-virtualenv
+yum install -y python3-virtualenv libvirt-devel gcc
 python3 -m virtualenv --system-site-packages --download /opt/vbmc
 /opt/vbmc/bin/pip install virtualbmc
 
@@ -311,11 +311,11 @@ ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.122.1 -p 6230 power st
 If things are working you can use the ipmitool to switch the VMs off to save resources for now
 
 ```
-ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.122.1 -p 6230 power power off
-ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.122.1 -p 6231 power power off
-ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.122.1 -p 6232 power power off
-ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.122.1 -p 6233 power power off
-ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.122.1 -p 6234 power power off
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.178.113 -p 6230 power off
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.178.113 -p 6231 power off
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.178.113 -p 6232 power off
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.178.113 -p 6233 power off
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.178.113 -p 6234 power off
 ```
 
 
