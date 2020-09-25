@@ -62,7 +62,7 @@ This configuration is quite specific for a network setup. No need for a 'managed
 Name | VLAN | Subnet | Gateway IP | lives on | Description
 ------------ | ------------- | ------------- | ------------- | ------------- | -------------
 External | 1 | 192.168.178.0/24 | 10.0.0.1 | Switch | Overcloud external API and floating IP
-Provisioning | 100 | 192.0.2.0/24 | 192.0.2.254 | Switch | Undercloud control plane and PXE boot
+Provisioning | 100 | 10.100.0.0/24 | 10.100.0.254 | Switch | Undercloud control plane and PXE boot
 osp_trunk | 110 | NA | NA | Switch | VLAN functioning as trunk to carry the VLANs below
 InternalApi | 20 | 172.17.0.0/24 | NA | Trunk, VLAN 101 | Overcloud internal API endpoints
 Storage | 30 | 172.18.0.0/24 | NA | Trunk, VLAN 101 | Storage access network

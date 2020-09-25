@@ -25,10 +25,10 @@ MTU=1500
 EOF
 
 cat > /tmp/ifcfg-eth1 << EOF
+#VLAN 100 is the provisioning network
+#In the example undercloud.conf this is 10.100.0.0/24
 DEVICE=eth1
-BOOTPROTO=static
-IPADDR=172.20.0.100
-PREFIX=24
+BOOTPROTO=none
 ONBOOT=yes
 MTU=1500
 EOF
