@@ -74,17 +74,13 @@ Tenant | 50 | 172.16.0.0/24 | NA | Trunk, VLAN 101 | Network for tenant tunnels
 NIC=enp1s0
 
 cat << EOF > /etc/sysconfig/network-scripts/ifcfg-$NIC
-TYPE="Ethernet"
-PROXY_METHOD="none"
-BROWSER_ONLY="no"
-BOOTPROTO="none"
-DEFROUTE="yes"
-IPV4_FAILURE_FATAL="no"
-NAME="$NIC"
-DEVICE="$NIC"
-ONBOOT="yes"
-MTU="9000"
-
+TYPE=Ethernet
+BOOTPROTO=none
+NAME=$NIC
+DEVICE=$NIC
+ONBOOT=yes
+MTU=9000
+EOF
 
 cat << EOF > /etc/sysconfig/network-scripts/ifcfg-$NIC.1
 DEVICE=$NIC.1
@@ -116,10 +112,10 @@ EOF
 cat << EOF > /etc/sysconfig/network-scripts/ifcfg-br0_1
 DEVICE=br0_1
 TYPE=Bridge
-IPADDR=192.168.178.113
+IPADDR=192.168.178.26
 NETMASK=255.255.255.0
 GATEWAY=192.168.178.1
-DNS1=192.168.178.87
+DNS1=8.8.8.8
 ONBOOT=yes
 MTU=9000
 BOOTPROTO=static
