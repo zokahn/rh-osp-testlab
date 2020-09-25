@@ -14,7 +14,7 @@ rm -f ${VIRT_DIR}/$VIRT_HOSTNAME.qcow2 > /dev/null 2>&1
 cd $VIRT_DIR
 #create root disk
 qemu-img create -f qcow2 $VIRT_HOSTNAME.qcow2 50G
-virt-resize --expand /dev/sda1 /$IMAGES_DIR/$OFFICIAL_IMAGE $VIRT_HOSTNAME.qcow2
+virt-resize --expand /dev/sda3 /$IMAGES_DIR/$OFFICIAL_IMAGE $VIRT_HOSTNAME.qcow2
 
 
 cat > /tmp/ifcfg-eth0 << EOF
