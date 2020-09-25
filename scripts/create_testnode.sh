@@ -24,7 +24,7 @@ EOF
 cat > /tmp/ifcfg-eth1 << EOF
 DEVICE=eth1
 BOOTPROTO=static
-IPADDR=172.20.0.11
+IPADDR=10.100.0.15
 PREFIX=24
 ONBOOT=yes
 MTU=9000
