@@ -1,7 +1,7 @@
 NODE_NAME=test-node
 IMAGES_DIR=/local/iso
 VIRT_DIR=/local/virt
-OFFICIAL_IMAGE=rhel-8.1-x86_64-kvm.qcow2
+OFFICIAL_IMAGE=rhel-8.2-x86_64-kvm.qcow2
 PASSWORD_FOR_VMS='r3dh4t1!'
 VIRT_DOMAIN='zokahn.local'
 
