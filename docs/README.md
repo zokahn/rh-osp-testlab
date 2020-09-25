@@ -112,7 +112,7 @@ EOF
 cat << EOF > /etc/sysconfig/network-scripts/ifcfg-br0_1
 DEVICE=br0_1
 TYPE=Bridge
-IPADDR=192.168.178.26
+IPADDR=192.168.178.113
 NETMASK=255.255.255.0
 GATEWAY=192.168.178.1
 DNS1=8.8.8.8
@@ -155,7 +155,7 @@ subscription-manager repos --enable=rhel-8-for-x86_64-baseos-rpms   --enable=rhe
 
 ### Installing the libvirt/KVM packages <a name="virtpack">
 ```
-yum install -y qemu-kvm libvirt libguestfs-tools virt-install libvirt-devel gcc
+yum install -y qemu-kvm libvirt libguestfs-tools virt-install
 systemctl enable libvirtd
 systemctl start libvirtd
 ```
