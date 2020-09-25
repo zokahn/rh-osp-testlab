@@ -14,8 +14,7 @@ for node in $nodes; do
                 --disk path=$VIRT_DIR/$node.dsk,size=100,bus=virtio \
                 --pxe --noautoconsole --graphics=vnc --hvm \
                 --network bridge=br1_100,model=virtio,mac=52:54:00:"$NUM"5:bd:2f \
-                --network bridge=br2_110,model=virtio \
-                --network bridge=br0_1,model=virtio \
+                --network bridge=br1_100,model=virtio \
                 --os-variant=rhel8.0
     NUM=$((NUM+1))
 done
@@ -30,7 +29,7 @@ for node in $nodes; do
                 --disk path=$VIRT_DIR/$node.dsk,size=100,bus=virtio \
                 --pxe --noautoconsole --graphics=vnc --hvm \
                 --network bridge=br1_100,model=virtio,mac=52:54:00:"$NUM"5:bd:2f \
-                --network bridge=br2_110,model=virtio \
+                --network bridge=br1_100,model=virtio \
                 --os-variant=rhel8.0
     NUM=$((NUM+1))
 done
