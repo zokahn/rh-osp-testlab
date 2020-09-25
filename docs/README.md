@@ -400,6 +400,12 @@ check images in the registry
 curl -s -H "Accept: application/json" http://10.100.0.1:8787/v2/_catalog | python -m json.tool
 ```
 
+Kick off the undercloud deployment process
+```
+openstack undercloud install
+```
+
+
 Overcloud images
 ```
 sudo yum -y install rhosp-director-images
@@ -417,12 +423,18 @@ openstack overcloud node import instackenv.json
 
 for node in `openstack baremetal node list -f value | grep manageable | cut -d' ' -f1`; do openstack overcloud node introspect $node --provide > /tmp/$node.log & sleep 5; done
 ```
+Or check an individual node
+```
+openstack overcloud node introspect compute1 --provide
+```
 
-Checking introspection data and tthat all nodes were correctly processed
+Checking introspection data and that all nodes were correctly processed
 ```
 openstack baremetal introspection list
 openstack baremetal node show controller1 -f json -c driver_info
 ```
+Make sure there are no duplicate ip's on the VLANs https://access.redhat.com/solutions/3799151
+
 
 abort running introspection
 ```

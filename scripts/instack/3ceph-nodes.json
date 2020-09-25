@@ -1,0 +1,40 @@
+{
+    "nodes":[
+        {
+            "mac":[
+                "52:54:00:65:bd:2f"
+            ],
+            "name":"ceph1",
+            "capabilities": "profile:ceph-storage,boot_option:local",
+            "pm_type":"ipmi",
+            "pm_user":"admin",
+            "pm_password":"Wond3rfulWorld",
+            "pm_addr":"192.168.178.113",
+            "pm_port":"6230"
+        },
+        {
+            "mac":[
+                "52:54:00:75:bd:2f"
+            ],
+            "name":"ceph2",
+            "capabilities": "profile:ceph-storage,boot_option:local",
+            "pm_type":"ipmi",
+            "pm_user":"admin",
+            "pm_password":"Wond3rfulWorld",
+            "pm_addr":"192.168.178.113",
+            "pm_port":"6231"
+        },
+        {
+            "mac":[
+                "52:54:00:85:bd:2f"
+            ],
+            "name":"ceph3",
+            "capabilities": "profile:ceph-storage,boot_option:local",
+            "pm_type":"ipmi",
+            "pm_user":"admin",
+            "pm_password":"Wond3rfulWorld",
+            "pm_addr":"192.168.178.113",
+            "pm_port":"6232"
+        }
+    ]
+}

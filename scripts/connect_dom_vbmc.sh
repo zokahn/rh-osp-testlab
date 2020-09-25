@@ -1,7 +1,7 @@
 #!/bin/bash
 ## Connect the OSP overcloud nodes to vmbc
 
-servers="controller1 controller2 controller3 compute1 compute2"
+servers="controller1 controller2 controller3 compute1 compute2 ceph1 ceph2 ceph3"
 binpath="/opt/vbmc/bin"
 vbmc_port=6230
 ipmi_username=admin
