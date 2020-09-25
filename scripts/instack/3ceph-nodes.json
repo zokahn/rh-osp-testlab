@@ -10,7 +10,7 @@
             "pm_user":"admin",
             "pm_password":"Wond3rfulWorld",
             "pm_addr":"192.168.178.113",
-            "pm_port":"6230"
+            "pm_port":"6235"
         },
         {
             "mac":[
@@ -22,7 +22,7 @@
             "pm_user":"admin",
             "pm_password":"Wond3rfulWorld",
             "pm_addr":"192.168.178.113",
-            "pm_port":"6231"
+            "pm_port":"6236"
         },
         {
             "mac":[
@@ -34,7 +34,7 @@
             "pm_user":"admin",
             "pm_password":"Wond3rfulWorld",
             "pm_addr":"192.168.178.113",
-            "pm_port":"6232"
+            "pm_port":"6237"
         }
     ]
 }

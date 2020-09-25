@@ -312,6 +312,9 @@ ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.178.113 -p 6231 power 
 ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.178.113 -p 6232 power off
 ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.178.113 -p 6233 power off
 ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.178.113 -p 6234 power off
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.178.113 -p 6235 power off
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.178.113 -p 6236 power off
+ipmitool -I lanplus -U admin -P Wond3rfulWorld -H 192.168.178.113 -p 6237 power off
 ```
 
 
