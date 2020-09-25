@@ -46,7 +46,7 @@ virt-customize -a $VIRT_HOSTNAME.qcow2 \
 virt-install --ram 8192 --vcpus 2 --os-variant rhel8.0 --accelerate \
   --disk path=$VIRT_DIR/$VIRT_HOSTNAME.qcow2,device=disk,bus=virtio,format=qcow2 \
   --import --graphics none  --console pty,target_type=serial --graphics=vnc \
-  --network bridge=br0_1,model=virtio --name $VIRT_HOSTNAME \
+  --network bridge=br0_1,model=virtio,mac=52:54:00:b4:a0:20 --name $VIRT_HOSTNAME \
   --network bridge=br1_100,model=virtio \
   --cpu host,+vmx \
   --dry-run --print-xml > /tmp/$VIRT_HOSTNAME.xml
