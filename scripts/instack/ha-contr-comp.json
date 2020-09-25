@@ -2,7 +2,7 @@
     "nodes":[
         {
             "mac":[
-                "52:54:00:99:8d:57"
+                "52:54:00:15:bd:2f"
             ],
             "name":"controller1",
             "capabilities": "profile:control,boot_option:local",
@@ -14,7 +14,7 @@
         },
         {
             "mac":[
-                "52:54:00:83:9a:08"
+                "52:54:00:25:bd:2f"
             ],
             "name":"controller2",
             "capabilities": "profile:control,boot_option:local",
@@ -26,7 +26,7 @@
         },
         {
             "mac":[
-                "52:54:00:2e:9a:9e"
+                "52:54:00:35:bd:2f"
             ],
             "name":"controller3",
             "capabilities": "profile:control,boot_option:local",
@@ -38,7 +38,7 @@
         },
         {
             "mac":[
-                "52:54:00:c5:82:85"
+                "52:54:00:45:bd:2f"
             ],
             "name":"compute1",
             "capabilities": "profile:compute,boot_option:local",
@@ -50,7 +50,7 @@
         },
         {
             "mac":[
-                "52:54:00:ec:dd:0a"
+                "52:54:00:55:bd:2f"
             ],
             "name":"compute2",
             "capabilities": "profile:compute,boot_option:local",
