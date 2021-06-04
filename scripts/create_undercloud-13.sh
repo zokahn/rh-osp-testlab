@@ -25,9 +25,17 @@ virt-resize --expand /dev/sda1 /$IMAGES_DIR/$OFFICIAL_IMAGE $VIRT_HOSTNAME.qcow2
 
 cat > /tmp/ifcfg-eth0 << EOF
 DEVICE=eth0
+BOOTPROTO=static
+ONBOOT=yes
+MTU=1500
+EOF
+
+cat > /tmp/ifcfg-eth0.1 << EOF
+DEVICE=eth0.1
 BOOTPROTO=dhcp
 ONBOOT=yes
 MTU=1500
+VLAN=yes
 EOF
 
 cat > /tmp/ifcfg-eth1 << EOF
