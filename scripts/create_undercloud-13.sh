@@ -56,6 +56,7 @@ virt-customize -a $VIRT_HOSTNAME.qcow2 \
   --uninstall cloud-init \
   --copy-in /tmp/ifcfg-eth0:/etc/sysconfig/network-scripts/ \
   --copy-in /tmp/ifcfg-eth1:/etc/sysconfig/network-scripts/ \
+  --copy-in /tmp/ifcfg-eth0.1:/etc/sysconfig/network-scripts/ \
   --timezone Europe/Amsterdam \
   --selinux-relabel
 
