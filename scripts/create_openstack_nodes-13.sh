@@ -15,7 +15,7 @@ for node in $nodes; do
                 --pxe --noautoconsole --graphics=vnc --hvm \
                 --network network=deployment,model=virtio,mac=52:54:00:"$NUM"5:bd:2f \
                 --network network=openstack-api,model=virtio \
-                --os-variant=rhel7
+                --os-variant=rhel7.0
     NUM=$((NUM+1))
 done
 
@@ -30,6 +30,6 @@ for node in $nodes; do
                 --pxe --noautoconsole --graphics=vnc --hvm \
                 --network network=deployment,model=virtio,mac=52:54:00:"$NUM"5:bd:2f \
                 --network network=openstack-api,model=virtio \
-                --os-variant=rhel7
+                --os-variant=rhel7.0
     NUM=$((NUM+1))
 done
