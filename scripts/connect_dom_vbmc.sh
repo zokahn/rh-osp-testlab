@@ -1,12 +1,20 @@
 #!/bin/bash
 ## Connect the OSP overcloud nodes to vmbc
 
-servers="controller1 controller2 controller3 compute1 compute2 ceph1 ceph2 ceph3"
+local_ip=192.168.178.26
+
+#Uncomment the one you need
+# servers="controller1 controller2 controller3 compute1 compute2 ceph1 ceph2 ceph3"
+
+
+servers="controller1 controller2 controller3 compute1 compute2"
+
+
 binpath="/opt/vbmc/bin"
 vbmc_port=6230
 ipmi_username=admin
 ipmi_password=Wond3rfulWorld
-impi_bindaddr=192.168.178.113
+impi_bindaddr=$local_ip
 
 for server in $servers; do
     echo "Kicking $server into gear in VirtualBMC with port $vbmc_port"
