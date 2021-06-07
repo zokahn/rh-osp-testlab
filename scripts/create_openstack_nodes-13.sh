@@ -14,10 +14,11 @@ for node in $nodes; do
                 --disk path=$VIRT_DIR/$node.dsk,size=100,bus=virtio \
                 --pxe --noautoconsole --graphics=vnc --hvm \
                 --network network=deployment,model=virtio,mac=52:54:00:"$NUM"5:bd:2f \
-                --network network=openstack-api,model=virtio \
                 --os-variant=rhel7.0
     NUM=$((NUM+1))
 done
+
+#                --network network=openstack-api,model=virtio \
 
 nodes="compute1 compute2"
 NUM=4
@@ -29,7 +30,6 @@ for node in $nodes; do
                 --disk path=$VIRT_DIR/$node.dsk,size=100,bus=virtio \
                 --pxe --noautoconsole --graphics=vnc --hvm \
                 --network network=deployment,model=virtio,mac=52:54:00:"$NUM"5:bd:2f \
-                --network network=openstack-api,model=virtio \
                 --os-variant=rhel7.0
     NUM=$((NUM+1))
 done

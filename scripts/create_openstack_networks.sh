@@ -18,3 +18,14 @@ virsh net-start tenant
 virsh net-define osp-networks/external.xml
 virsh net-autostart external
 virsh net-start external
+
+### storagemgmt
+virsh net-define osp-networks/storagemgmt.xml
+virsh net-autostart storagemgmt
+virsh net-start storagemgmt
+
+### storage
+virsh net-define osp-networks/storage.xml
+virsh net-autostart storage
+virsh net-start storage
+
