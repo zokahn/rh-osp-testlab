@@ -4,7 +4,7 @@
       "pm_user": "admin",
       "capabilities": "profile:compute,boot_option:local",
       "name": "overcloud-compute0",
-      "pm_addr": "192.168.178.113",
+      "pm_addr": "192.168.178.26",
       "pm_password": "Wond3rfulWorld",
       "pm_type": "pxe_ipmitool",
       "mac": [
@@ -15,7 +15,7 @@
       "pm_user": "admin",
       "capabilities": "profile:compute,boot_option:local",
       "name": "overcloud-compute1",
-      "pm_addr": "192.168.178.113",
+      "pm_addr": "192.168.178.26",
       "pm_password": "Wond3rfulWorld",
       "pm_type": "pxe_ipmitool",
       "mac": [
@@ -26,7 +26,7 @@
       "pm_user": "admin",
       "capabilities": "profile:control,boot_option:local",
       "name": "overcloud-controller0",
-      "pm_addr": "192.168.178.113",
+      "pm_addr": "192.168.178.26",
       "pm_password": "Wond3rfulWorld",
       "pm_type": "pxe_ipmitool",
       "mac": [
@@ -37,7 +37,7 @@
       "pm_user": "admin",
       "capabilities": "profile:control,boot_option:local",
       "name": "overcloud-controller1",
-      "pm_addr": "192.168.178.113",
+      "pm_addr": "192.168.178.26",
       "pm_password": "Wond3rfulWorld",
       "pm_type": "pxe_ipmitool",
       "mac": [
@@ -48,7 +48,7 @@
       "pm_user": "admin",
       "capabilities": "profile:control,boot_option:local",
       "name": "overcloud-controller2",
-      "pm_addr": "192.168.178.113",
+      "pm_addr": "192.168.178.26",
       "pm_password": "Wond3rfulWorld",
       "pm_type": "pxe_ipmitool",
       "mac": [
