@@ -1,0 +1,4 @@
+<network>
+  <name>storagemgmt</name>
+  <bridge name="virbr7"/>
+</network>

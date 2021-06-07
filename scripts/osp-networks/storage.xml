@@ -1,0 +1,4 @@
+<network>
+  <name>storage</name>
+  <bridge name="virbr8"/>
+</network>
