@@ -518,6 +518,36 @@ parameter_defaults:
 EOF
 ```
 
+Gathering important and frequently used Templates
+
+```
+THT=/usr/share/openstack-tripleo-heat-templates
+cp $THT/roles_data.yaml ~/templates
+cp $THT/network_data.yaml ~/templates
+```
+
+Change network_data.yaml to reflect the network details. Meaning so much as to change the vlan information and IPv4 networks. Remove IPv6 if not needed or change this to your needs.
+
+With the roles and the updated network data we process the templates into something useful
+```
+mkdir ~/workplace
+mkdir ~/output
+cp -rp /usr/share/openstack-tripleo-heat-templates/* workplace
+
+cd workplace/
+tools/process-templates.py -r ../templates/roles_data.yaml -n ../templates/network_data.yaml -o ../output
+```
+
+Out of the processed templates we take the network config
+```
+cd output/
+cp environments/network-environment.yaml ~/templates/environments
+
+mkdir -p ~/templates/network/config/multiple-nics/
+cp ~/output/network/config/multiple-nics/*.yaml ~/templates/network/config/multiple-nics/
+
+sed -i 's#../../scripts/run-os-net-config.sh#/usr/share/openstack-tripleo-heat-templates/network/scripts/run-os-net-config.sh#' -i templates/network/config/multiple-nics/*.yaml
+
 
 
 ### Running the deployment process <a name="deployment">
