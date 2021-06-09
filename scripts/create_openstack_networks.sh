@@ -29,3 +29,7 @@ virsh net-define osp-networks/storage.xml
 virsh net-autostart storage
 virsh net-start storage
 
+### trunk
+virsh net-define osp-networks/trunk.xml
+virsh net-autostart trunk
+virsh net-start trunk
