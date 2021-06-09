@@ -1,5 +1,6 @@
 #!/bin/bash
-VIRT_DIR=/local/virt
+VIRT_DIR=/var/lib/libvirt/images
+
 
 VIRT_DOMAIN='simpletest.nl'
 
