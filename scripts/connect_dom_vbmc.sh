@@ -7,7 +7,7 @@ local_ip=192.168.178.26
 # servers="controller1 controller2 controller3 compute1 compute2 ceph1 ceph2 ceph3"
 
 
-servers="controller1 controller2 controller3 compute1 compute2"
+servers="controller1 controller2 controller3 compute1 compute2 ceph1 ceph2 ceph3"
 
 
 binpath="/opt/vbmc/bin"
