@@ -1,4 +1,4 @@
 <network>
   <name>external</name>
-  <bridge name="virbr6"/>
+  <domain name="external"/>
 </network>

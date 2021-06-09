@@ -1,4 +1,4 @@
 <network>
   <name>storagemgmt</name>
-  <bridge name="virbr7"/>
+  <domain name="storagemgmt"/>
 </network>

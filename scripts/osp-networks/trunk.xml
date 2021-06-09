@@ -1,0 +1,4 @@
+<network>
+  <name>trunk</name>
+  <domain name="trunk"/>
+</network>

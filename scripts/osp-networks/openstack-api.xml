@@ -1,4 +1,4 @@
 <network>
   <name>openstack-api</name>
-  <bridge name="virbr3"/>
+  <domain name="openstack-api"/>
 </network>
