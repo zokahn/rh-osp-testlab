@@ -396,7 +396,7 @@ Some examples to show how to push to a local registry for container images
 openstack overcloud container image prepare   --namespace=registry.access.redhat.com/rhosp13   --push-destination=10.100.0.1:8787   --prefix=openstack-   --tag-from-label {version}-{release}   --output-env-file=/home/stack/templates/overcloud_images.yaml   --output-images-file /home/stack/local_registry_images.yaml
 
 source ~/stackrc
-openstack overcloud container image upload   --config-file  /home/stack/local_registry_images.yaml   --verbose
+sudo openstack overcloud container image upload   --config-file  /home/stack/local_registry_images.yaml   --verbose
 ```
 check images in the registry
 ```

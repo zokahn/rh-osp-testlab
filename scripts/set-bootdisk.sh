@@ -18,7 +18,7 @@ done
 
 ####set boot device for ceph nodes #####
 for i in $(openstack overcloud profiles list | grep ceph | awk '{print $2}');
-  do openstack baremetal node set --property root_device='{"name": "/dev/sda"}'  $i;
+  do openstack baremetal node set --property root_device='{"name": "/dev/vda"}'  $i;
 done
 
 for i in `openstack overcloud profiles list | grep ceph | awk '{print $4}'`;
