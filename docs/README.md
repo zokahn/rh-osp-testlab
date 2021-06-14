@@ -574,6 +574,17 @@ exec openstack overcloud deploy \
         --log-file /home/stack/overcloud-deploy.log
 ```
 
+With OSP13 you need to create the OpenStack Nova Flavors yourself, these commands will add the standard AWS like Instance dimension flavors.
+
+```
+openstack flavor create --vcpus 1  --ram 512  --disk 1  m1.tiny
+openstack flavor create --vcpus 1  --ram 2048 --disk 20  m1.small
+openstack flavor create --vcpus 2  --ram 4096 --disk 40 m1.medium
+openstack flavor create --vcpus 4  --ram 8192  --disk 80 m1.large
+openstack flavor create --vcpus 8  --ram 16384 --disk 160 m1.xlarge
+```
+
+
 notes:
 http://tripleo.org/install/environments/virtualbmc.html
 https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/director_installation_and_usage/index
